@@ -1,0 +1,28 @@
+clc 
+clear all 
+close all
+
+
+recording=audiorecorder;
+disp('SPEAK....!!!')
+
+recordblocking(recording,5); 
+disp('STOP...!!!')
+play(recording)
+y=getaudiodata(recording);
+
+N=100;          % order of filter
+fc=0.5;      % cutoff frequency
+%LOWPASS FILTER
+
+num1=fir1(N, fc, 'low');
+den1=[1];
+fvtool(num1,den1)
+subplot (2,1,1)
+plot (y)
+title("original signal")
+
+FILTER1=filter(num1,den1,y)
+subplot (2,1,2)
+plot(FILTER1)
+title('filtered signal')
